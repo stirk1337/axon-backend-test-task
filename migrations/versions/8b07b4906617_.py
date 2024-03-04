@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9694d4ceb9a5
+Revision ID: 8b07b4906617
 Revises: 
-Create Date: 2024-03-04 14:53:03.631526
+Create Date: 2024-03-04 16:00:55.814481
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9694d4ceb9a5'
+revision: str = '8b07b4906617'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -23,27 +23,26 @@ def upgrade() -> None:
     op.create_table('batch',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('closing_status', sa.Boolean(), nullable=False),
-    sa.Column('closed_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=True),
+    sa.Column('closed_at', sa.DateTime(timezone=True), nullable=True),
     sa.Column('submission', sa.String(length=100), nullable=False),
     sa.Column('line', sa.String(length=100), nullable=False),
     sa.Column('shift', sa.String(length=100), nullable=False),
     sa.Column('crew', sa.String(length=100), nullable=False),
     sa.Column('number', sa.Integer(), nullable=False),
-    sa.Column('batch_date', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=False),
-    sa.Column('nomenclature', sa.Integer(), nullable=False),
+    sa.Column('batch_date', sa.Date(), nullable=False),
+    sa.Column('nomenclature', sa.String(length=100), nullable=False),
     sa.Column('single_cadastral_number', sa.String(length=100), nullable=False),
     sa.Column('work_center', sa.String(length=100), nullable=False),
-    sa.Column('shift_start_datetime', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=False),
-    sa.Column('shift_end_datetime', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=False),
+    sa.Column('shift_start_datetime', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('shift_end_datetime', sa.DateTime(timezone=True), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('nomenclature'),
     sa.UniqueConstraint('number', 'batch_date', name='u_number_date')
     )
     op.create_table('product',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('code', sa.String(length=100), nullable=False),
     sa.Column('is_aggregated', sa.Boolean(), nullable=False),
-    sa.Column('aggregated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=True),
+    sa.Column('aggregated_at', sa.DateTime(timezone=True), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('code')
     )

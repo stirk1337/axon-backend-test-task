@@ -2,6 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from src.handlers.batch_handlers import router as batch_router
+
 app = FastAPI(title='Axon Backend Task',
               description='API Documentaion',
               version='0.0.1',
@@ -22,6 +24,7 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+app.include_router(batch_router)
 
 log_config = uvicorn.config.LOGGING_CONFIG
 log_config['formatters']['access']['fmt'] = \
@@ -32,4 +35,4 @@ log_config['formatters']['default']['fmt'] = \
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=8000,
-                log_config=log_config, root_path='/api/v1/')
+                log_config=log_config)

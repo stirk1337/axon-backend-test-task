@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Integer, Boolean, String, text
+from sqlalchemy import Integer, Boolean, String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.db import Base
@@ -18,6 +18,6 @@ class Product(Base):
     is_aggregated: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False
     )
-    aggregated_at: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())"), nullable=True
+    aggregated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=True
     )

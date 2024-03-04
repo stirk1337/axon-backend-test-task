@@ -1,6 +1,6 @@
-import datetime
+from datetime import datetime, date
 
-from sqlalchemy import Integer, Boolean, String, text, UniqueConstraint
+from sqlalchemy import Integer, Boolean, String, UniqueConstraint, DateTime, Date
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.db import Base
@@ -13,10 +13,10 @@ class Batch(Base):
         Integer, primary_key=True
     )
     closing_status: Mapped[bool] = mapped_column(
-        Boolean, default=False, nullable=False
+        Boolean, nullable=False
     )
-    closed_at: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())"), nullable=True
+    closed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=True
     )
     submission: Mapped[str] = mapped_column(
         String(length=100), nullable=False
@@ -33,11 +33,11 @@ class Batch(Base):
     number: Mapped[str] = mapped_column(
         Integer, nullable=False
     )
-    batch_date: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())")
+    batch_date: Mapped[date] = mapped_column(
+        Date(), nullable=False
     )
     nomenclature: Mapped[str] = mapped_column(
-        Integer, unique=True, nullable=False
+        String(length=100), nullable=False
     )
     single_cadastral_number: Mapped[str] = mapped_column(
         String(length=100), nullable=False
@@ -45,11 +45,11 @@ class Batch(Base):
     work_center: Mapped[str] = mapped_column(
         String(length=100), nullable=False
     )
-    shift_start_datetime: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())")
+    shift_start_datetime: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
     )
-    shift_end_datetime: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())")
+    shift_end_datetime: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False
     )
 
     __table_args__ = (
