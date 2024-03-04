@@ -7,6 +7,8 @@ from alembic import context
 
 from src.db import Base
 from config import settings
+from src.models.batch import Batch  # noqa
+from src.models.product import Product  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
