@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-from starlette.staticfiles import StaticFiles
 
 app = FastAPI(title='Axon Backend Task',
               description='API Documentaion',

@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 uvicorn = "0.27.1"
 fastapi = "0.110.0"
+sqlalchemy = "2.0.27"
+pydantic-settings = "2.2.1"
+alembic = "1.13.1"
+asyncpg = "0.29.0"
+psycopg2-binary = "2.9.9"
 
 [dev-packages]
 
