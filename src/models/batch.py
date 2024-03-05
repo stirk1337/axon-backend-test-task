@@ -1,9 +1,11 @@
 from datetime import datetime, date
+from typing import List
 
 from sqlalchemy import Integer, Boolean, String, UniqueConstraint, DateTime, Date
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db import Base
+from src.models.product import Product
 
 
 class Batch(Base):
@@ -51,6 +53,8 @@ class Batch(Base):
     shift_end_datetime: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False
     )
+    products: Mapped[List[Product]] = relationship(
+        back_populates='batch', cascade='all, delete')
 
     __table_args__ = (
         UniqueConstraint(number, batch_date, name='u_number_date'),

@@ -1,7 +1,7 @@
 import datetime
 
-from sqlalchemy import Integer, Boolean, String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, Boolean, String, DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db import Base
 
@@ -21,3 +21,8 @@ class Product(Base):
     aggregated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
+    batch_id: Mapped[int] = mapped_column(
+        ForeignKey('batch.id', ondelete='CASCADE')
+    )
+    batch: Mapped['Batch'] = relationship(
+        back_populates='products')
