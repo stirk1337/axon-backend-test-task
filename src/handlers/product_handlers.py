@@ -26,9 +26,9 @@ async def add_product(products_in: List[ProductInRus],
     return {'status': 'ok'}
 
 
-@router.patch('/aggregate/{code}', status_code=200, responses={
+@router.patch('/aggregate/', status_code=200, responses={
     404: {'model': Message, 'description': "Product not found"},
-    400: {'model': Message, 'description': 'unique code is attached to another batch or aldready used'}})
+    400: {'model': Message, 'description': 'unique code is attached to another batch or already used'}})
 async def aggregate_product(code: str, product_in: ProductInAggregate,
                             session: AsyncSession = Depends(get_async_session)) -> ProductOutAggregate:
     product_service = ProductService(session)
