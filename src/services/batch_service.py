@@ -1,11 +1,12 @@
 from datetime import datetime, date
+from typing import List
 
 import sqlalchemy.exc
-from sqlalchemy import select, inspect
+from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from src.handlers.pydantic_models.batch_model import BatchModelInRus, BatchModelInUpdate
+from src.handlers.pydantic_models.batch_model import BatchModelInRus, BatchModelInUpdate, BatchModelInFilters
 from src.models.batch import Batch
 
 
@@ -65,3 +66,42 @@ class BatchService:
             )
         )
         return batch
+
+    async def filter_batches(self, filters: BatchModelInFilters) -> List[Batch]:
+        apply_filters = []
+
+        filter_mapping = {
+            "closing_status": Batch.closing_status,
+            "closed_at_before": Batch.closed_at,
+            "closed_at_after": Batch.closed_at,
+            "submission": Batch.submission,
+            "line": Batch.line,
+            "shift": Batch.shift,
+            "crew": Batch.crew,
+            "number": Batch.number,
+            "batch_date_before": Batch.batch_date,
+            "batch_date_after": Batch.batch_date,
+            "nomenclature": Batch.nomenclature,
+            "single_cadastral_number": Batch.single_cadastral_number,
+            "work_center": Batch.work_center,
+            "shift_start_datetime_before": Batch.shift_start_datetime,
+            "shift_start_datetime_after": Batch.shift_start_datetime,
+            "shift_end_datetime_before": Batch.shift_end_datetime,
+            "shift_end_datetime_after": Batch.shift_end_datetime,
+        }
+
+        for filter_name, filter_value in vars(filters).items():
+            if filter_value is not None:
+                if filter_name.endswith("_before"):
+                    apply_filters.append(filter_mapping[filter_name] <= filter_value)
+                elif filter_name.endswith("_after"):
+                    apply_filters.append(filter_mapping[filter_name] >= filter_value)
+                else:
+                    apply_filters.append(filter_mapping[filter_name] == filter_value)
+
+        query = select(Batch)
+        if filters:
+            query = query.where(and_(*apply_filters))
+
+        batches = await self.db_session.execute(query)
+        return batches.scalars().all()

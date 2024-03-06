@@ -25,6 +25,26 @@ class BatchModelInRus(BaseModel):
     shift_end_datetime: datetime = Field(validation_alias="ДатаВремяОкончанияСмены")
 
 
+class BatchModelInFilters(BaseModel):
+    closing_status: Optional[bool] = None
+    closed_at_before: Optional[datetime] = None
+    closed_at_after: Optional[datetime] = None
+    submission: Optional[str] = None
+    line: Optional[str] = None
+    shift: Optional[str] = None
+    crew: Optional[str] = None
+    number: Optional[int] = None
+    batch_date_before: Optional[date] = None
+    batch_date_after: Optional[date] = None
+    nomenclature: Optional[str] = None
+    single_cadastral_number: Optional[str] = None
+    work_center: Optional[str] = None
+    shift_start_datetime_before: Optional[datetime] = None
+    shift_start_datetime_after: Optional[datetime] = None
+    shift_end_datetime_before: Optional[datetime] = None
+    shift_end_datetime_after: Optional[date] = None
+
+
 class BatchModelInUpdate(BaseModel):
     closing_status: Optional[bool] = None
     submission: Optional[str] = None
