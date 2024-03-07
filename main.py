@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from src.handlers.batch_handlers import router as batch_router
 from src.handlers.product_handlers import router as product_router
+from config import settings
 
 app = FastAPI(title='Axon Backend Task',
               description='API Documentaion',
@@ -18,6 +19,12 @@ app = FastAPI(title='Axon Backend Task',
 app.include_router(batch_router)
 app.include_router(product_router)
 
+log_config = uvicorn.config.LOGGING_CONFIG
+log_config['formatters']['access']['fmt'] = \
+    '%(asctime)s - %(levelname)s - %(message)s'
+log_config['formatters']['default']['fmt'] = \
+    '%(asctime)s - %(levelname)s - %(message)s'
+
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host=settings.app_host, port=int(settings.app_port), log_config=log_config)

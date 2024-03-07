@@ -3,11 +3,12 @@ from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from config import settings
+from config import settings as s
 
 Base = declarative_base()
 
-DATABASE_URL: str = str(settings.postgres)
+DATABASE_URL = (f'postgresql+asyncpg://'
+                f'{s.postgres_user}:{s.postgres_password}@{s.postgres_host}:{s.postgres_port}/{s.postgres_db}')
 
 
 engine = create_async_engine(DATABASE_URL)
