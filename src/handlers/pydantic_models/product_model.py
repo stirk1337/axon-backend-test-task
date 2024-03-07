@@ -15,7 +15,6 @@ class ProductInAggregate(BaseModel):
 
 class ProductOut(BaseModel):
     class Config:
-        orm_mode = True
         from_attributes = True
 
     id: int
@@ -27,7 +26,6 @@ class ProductOut(BaseModel):
 class ProductOutAggregate(BaseModel):
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
     code: str

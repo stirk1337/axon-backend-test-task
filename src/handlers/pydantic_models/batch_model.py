@@ -8,7 +8,6 @@ from src.handlers.pydantic_models.product_model import ProductOut
 
 class BatchModelInRus(BaseModel):
     class Config:
-        orm_mode = True
         from_attributes = True
 
     closing_status: bool = Field(validation_alias="СтатусЗакрытия")
@@ -62,7 +61,6 @@ class BatchModelInUpdate(BaseModel):
 
 class BatchModelOut(BaseModel):
     class Config:
-        orm_mode = True
         from_attributes = True
 
     id: int

@@ -6,19 +6,19 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')
 
     app_host: str
-    app_port: int
+    app_port: str
 
     postgres_host: str
     postgres_db: str
     postgres_password: str
     postgres_user: str
-    postgres_port: int
+    postgres_port: str
 
     postgres_host_test: str
     postgres_db_test: str
     postgres_password_test: str
     postgres_user_test: str
-    postgres_port_test: int
+    postgres_port_test: str
 
 
 settings = Settings()
