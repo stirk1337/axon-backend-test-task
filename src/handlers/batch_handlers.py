@@ -49,8 +49,8 @@ async def update_batch(batch_id: int,
     return BatchModelOut.from_orm(updated_batch)
 
 
-@router.get('/filter', status_code=201)
-async def get_batches_with_filters(filters=Depends(BatchModelInFilters),
+@router.get('/filter/', status_code=200)
+async def get_batches_with_filters(filters: BatchModelInFilters = Depends(BatchModelInFilters),
                                    session: AsyncSession = Depends(get_async_session)) -> List[BatchModelOut]:
     batch_service = BatchService(session)
     filtered_batches = await batch_service.filter_batches(filters)

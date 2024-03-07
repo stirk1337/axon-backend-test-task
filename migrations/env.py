@@ -5,8 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.db import Base
-from config import settings
+from src.db import Base, DATABASE_URL
 from src.models.batch import Batch  # noqa
 from src.models.product import Product  # noqa
 
@@ -14,7 +13,6 @@ from src.models.product import Product  # noqa
 # access to the values within the .ini file in use.
 config = context.config
 
-DATABASE_URL = str(settings.postgres)
 config.set_main_option('sqlalchemy.url', 'postgresql://' + ''.join(DATABASE_URL.split('//')[1:]))
 
 # Interpret the config file for Python logging.
