@@ -22,8 +22,7 @@ class ProductService:
 
     async def get_product_by_code(self, code: str) -> Product:
         product = await self.db_session.scalar(
-            select(Product)
-            .where(Product.code == code)
+            select(Product).where(Product.code == code)
         )
         return product
 
