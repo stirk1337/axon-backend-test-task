@@ -22,8 +22,8 @@
 - [x] docker
 - [x] Базовый CI/CD
 
-**Запуск проекта:**
-
+**Запуск проекта:**  
+Создать и заполнить .env по образцу из .env.example
 ```console
 stirk1337@stirk-desktop:~$ make dev
 ```
@@ -33,7 +33,13 @@ stirk1337@stirk-desktop:~$ make dev
 ```console
 stirk1337@stirk-desktop:~$ make test
 ```
-
+Если не запускаются, установить виртуальное окружение и зависимости из Pipfile
+```console
+stirk1337@stirk-desktop:~$ pip install pipenv
+stirk1337@stirk-desktop:~$ pipenv shell
+stirk1337@stirk-desktop:~$ pipenv install
+```
+Тестов мало, т.к. в рамках тестового задания думаю этого будет достаточно. 
 ## Основные задачи
 
 ### Эндпойнт добавления сменных заданий
