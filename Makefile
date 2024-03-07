@@ -1,4 +1,4 @@
-docker:
+dev:
 	docker compose up --build
 
 test:
