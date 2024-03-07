@@ -4,9 +4,9 @@ from pydantic import BaseModel, Field
 
 
 class ProductInRus(BaseModel):
-    code: str = Field(validation_alias='УникальныйКодПродукта')
-    number: int = Field(validation_alias='НомерПартии')
-    batch_date: date = Field(validation_alias='ДатаПартии')
+    code: str = Field(validation_alias="УникальныйКодПродукта")
+    number: int = Field(validation_alias="НомерПартии")
+    batch_date: date = Field(validation_alias="ДатаПартии")
 
 
 class ProductInAggregate(BaseModel):
@@ -24,7 +24,6 @@ class ProductOut(BaseModel):
 
 
 class ProductOutAggregate(BaseModel):
-
     class Config:
         from_attributes = True
 
